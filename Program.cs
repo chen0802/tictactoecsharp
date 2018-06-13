@@ -1,18 +1,11 @@
 ﻿using System;
+using System.Linq;
 
 namespace TicTacToe
 {
     class Program
     {
-        private static string A = "1";
-        private static string B = "2";
-        private static string C = "3";
-        private static string D = "4";
-        private static string E = "5";
-        private static string F = "6";
-        private static string G = "7";
-        private static string H = "8";
-        private static string I = "9";
+        private static string [] position = new string[9];
         private static string Player1Text = "O";
         private static string Player2Text = "X";
         static void Main(string[] args)
@@ -20,6 +13,8 @@ namespace TicTacToe
 
             string curPlayer = Player1Text;
             bool inputCorrect = true;
+
+            initPosition(position);
 
             print();
 
@@ -29,41 +24,41 @@ namespace TicTacToe
 
                 inputCorrect = true;
 
-                if ((input == "1") && (A == "1"))
+                if ((input == "1") && (position[0] == "1"))
                 {
-                    A = curPlayer;
+                    position[0] = curPlayer;
                 }
-                else if ((input == "2") && (B == "2"))
+                else if ((input == "2") && (position[1] == "2"))
                 {
-                    B = curPlayer;
+                    position[1] = curPlayer;
                 }
-                else if ((input == "3") && (C == "3"))
+                else if ((input == "3") && (position[2] == "3"))
                 {
-                    C = curPlayer;
+                    position[2] = curPlayer;
                 }
-                else if ((input == "4") && (D == "4"))
+                else if ((input == "4") && (position[3] == "4"))
                 {
-                    D = curPlayer;
+                    position[3] = curPlayer;
                 }
-                else if ((input == "5") && (E == "5"))
+                else if ((input == "5") && (position[4] == "5"))
                 {
-                    E = curPlayer;
+                    position[4] = curPlayer;
                 }
-                else if ((input == "6") && (F == "6"))
+                else if ((input == "6") && (position[5] == "6"))
                 {
-                    F = curPlayer;
+                    position[5] = curPlayer;
                 }
-                else if ((input == "7") && (G == "7"))
+                else if ((input == "7") && (position[6] == "7"))
                 {
-                    G = curPlayer;
+                    position[6] = curPlayer;
                 }
-                else if ((input == "8") && (H == "8"))
+                else if ((input == "8") && (position[7] == "8"))
                 {
-                    H = curPlayer;
+                    position[7] = curPlayer;
                 }
-                else if ((input == "9") && (I == "9"))
+                else if ((input == "9") && (position[8] == "9"))
                 {
-                    I = curPlayer;
+                    position[8] = curPlayer;
                 } else {
                     inputCorrect = false;
                     Console.WriteLine("Invalid input");
@@ -83,25 +78,37 @@ namespace TicTacToe
 
                 print();
             }
+        }
 
+        private static void initPosition(string [] pos)
+        {
+            for (int i=0; i<9; i++)
+            {
+                pos[i] = (i+1).ToString();
+            }
         }
         private static void print() 
         {
             Console.WriteLine("");
-            Console.WriteLine(A + "|" + B + "|" + C);
-            Console.WriteLine(D + "|" + E + "|" + F);
-            Console.WriteLine(G + "|" + H + "|" + I);
+            Console.WriteLine(position[0] + "|" + position[1] + "|" + position[2]);
+            Console.WriteLine(position[3] + "|" + position[4] + "|" + position[5]);
+            Console.WriteLine(position[6] + "|" + position[7] + "|" + position[8]);
             Console.WriteLine("");
         }
 
         private static bool checkWinner()
         {
-            // A B C
-            // D E F
-            // G H I
-            return (checkLine(A, B, C) || checkLine(D, E, F) || checkLine(G, H, I) ||
-                    checkLine(A, D, G) || checkLine(B, E, H) || checkLine(C, F, I) ||
-                    checkLine(A, E, I) || checkLine(C, E, G));
+            // A0 B1 C2
+            // D3 E4 F5
+            // G6 H7 I8
+            return (checkLine(position[0], position[1], position[2]) || 
+                    checkLine(position[3], position[4], position[5]) || 
+                    checkLine(position[6], position[7], position[8]) ||
+                    checkLine(position[0], position[3], position[6]) || 
+                    checkLine(position[1], position[4], position[7]) || 
+                    checkLine(position[2], position[5], position[8]) ||
+                    checkLine(position[0], position[4], position[8]) || 
+                    checkLine(position[2], position[4], position[6]));
         }
 
         private static bool checkLine(string val1, string val2, string val3)
@@ -126,9 +133,9 @@ namespace TicTacToe
         }
         private static bool finishAll() 
         {
-            if ((A != "1") && (B != "2") && (C != "3") &&
-                (D != "4") && (E != "5") && (F != "6") &&
-                (G != "7") && (H != "8") && (I != "9"))
+            if ((position[0] != "1") && (position[1] != "2") && (position[2] != "3") &&
+                (position[3] != "4") && (position[4] != "5") && (position[5] != "6") &&
+                (position[6] != "7") && (position[7] != "8") && (position[8] != "9"))
             {
                 Console.WriteLine("Nobody won");
                 return true;
