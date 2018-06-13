@@ -13,81 +13,83 @@ namespace TicTacToe
 
             string curPlayer = Player1Text;
             bool inputCorrect = true;
+            string input;
 
-            initPosition(position);
+            InitPosition(position);
 
-            print();
+            DrawBoard();
 
-            while(!checkWinner() && !finishAll()) {
+            while(!CheckWinner() && !FinishAll()) {
 
-                string input = Console.ReadLine();
+                do {
 
-                inputCorrect = true;
+                    inputCorrect = true;
 
-                if ((input == "1") && (position[0] == "1"))
-                {
-                    position[0] = curPlayer;
-                }
-                else if ((input == "2") && (position[1] == "2"))
-                {
-                    position[1] = curPlayer;
-                }
-                else if ((input == "3") && (position[2] == "3"))
-                {
-                    position[2] = curPlayer;
-                }
-                else if ((input == "4") && (position[3] == "4"))
-                {
-                    position[3] = curPlayer;
-                }
-                else if ((input == "5") && (position[4] == "5"))
-                {
-                    position[4] = curPlayer;
-                }
-                else if ((input == "6") && (position[5] == "6"))
-                {
-                    position[5] = curPlayer;
-                }
-                else if ((input == "7") && (position[6] == "7"))
-                {
-                    position[6] = curPlayer;
-                }
-                else if ((input == "8") && (position[7] == "8"))
-                {
-                    position[7] = curPlayer;
-                }
-                else if ((input == "9") && (position[8] == "9"))
-                {
-                    position[8] = curPlayer;
-                } else {
-                    inputCorrect = false;
-                    Console.WriteLine("Invalid input");
-                }
+                    input = Console.ReadLine();
 
-                if (inputCorrect) {
-                    //next player's turn
-                    if (curPlayer == Player1Text)
+                    if ((input == "1") && (position[0] == "1"))
                     {
-                        curPlayer = Player2Text;
-                    } 
-                    else 
-                    {
-                        curPlayer = Player1Text;
+                        position[0] = curPlayer;
                     }
+                    else if ((input == "2") && (position[1] == "2"))
+                    {
+                        position[1] = curPlayer;
+                    }
+                    else if ((input == "3") && (position[2] == "3"))
+                    {
+                        position[2] = curPlayer;
+                    }
+                    else if ((input == "4") && (position[3] == "4"))
+                    {
+                        position[3] = curPlayer;
+                    }
+                    else if ((input == "5") && (position[4] == "5"))
+                    {
+                        position[4] = curPlayer;
+                    }
+                    else if ((input == "6") && (position[5] == "6"))
+                    {
+                        position[5] = curPlayer;
+                    }
+                    else if ((input == "7") && (position[6] == "7"))
+                    {
+                        position[6] = curPlayer;
+                    }
+                    else if ((input == "8") && (position[7] == "8"))
+                    {
+                        position[7] = curPlayer;
+                    }
+                    else if ((input == "9") && (position[8] == "9"))
+                    {
+                        position[8] = curPlayer;
+                    } else {
+                        inputCorrect = false;
+                        Console.WriteLine("Invalid input");
+                    }
+                } while (!inputCorrect);
+
+                //next player's turn
+                if (curPlayer == Player1Text)
+                {
+                    curPlayer = Player2Text;
+                } 
+                else 
+                {
+                    curPlayer = Player1Text;
                 }
 
-                print();
+                DrawBoard();
             }
         }
 
-        private static void initPosition(string [] pos)
+        private static void InitPosition(string [] pos)
         {
             for (int i=0; i<9; i++)
             {
                 pos[i] = (i+1).ToString();
             }
         }
-        private static void print() 
+        private static void DrawBoard() 
         {
             Console.WriteLine("");
             Console.WriteLine(position[0] + "|" + position[1] + "|" + position[2]);
@@ -96,22 +98,19 @@ namespace TicTacToe
             Console.WriteLine("");
         }
 
-        private static bool checkWinner()
+        private static bool CheckWinner()
         {
-            // A0 B1 C2
-            // D3 E4 F5
-            // G6 H7 I8
-            return (checkLine(position[0], position[1], position[2]) || 
-                    checkLine(position[3], position[4], position[5]) || 
-                    checkLine(position[6], position[7], position[8]) ||
-                    checkLine(position[0], position[3], position[6]) || 
-                    checkLine(position[1], position[4], position[7]) || 
-                    checkLine(position[2], position[5], position[8]) ||
-                    checkLine(position[0], position[4], position[8]) || 
-                    checkLine(position[2], position[4], position[6]));
+            return (CheckLine(position[0], position[1], position[2]) || 
+                    CheckLine(position[3], position[4], position[5]) || 
+                    CheckLine(position[6], position[7], position[8]) ||
+                    CheckLine(position[0], position[3], position[6]) || 
+                    CheckLine(position[1], position[4], position[7]) || 
+                    CheckLine(position[2], position[5], position[8]) ||
+                    CheckLine(position[0], position[4], position[8]) || 
+                    CheckLine(position[2], position[4], position[6]));
         }
 
-        private static bool checkLine(string val1, string val2, string val3)
+        private static bool CheckLine(string val1, string val2, string val3)
         {
             bool won = (((val1 == Player1Text) || (val1 == Player2Text)) &&
                 ((val2 == Player1Text) || (val2 == Player2Text)) &&
@@ -131,7 +130,7 @@ namespace TicTacToe
             }
             return won;
         }
-        private static bool finishAll() 
+        private static bool FinishAll() 
         {
             if ((position[0] != "1") && (position[1] != "2") && (position[2] != "3") &&
                 (position[3] != "4") && (position[4] != "5") && (position[5] != "6") &&
